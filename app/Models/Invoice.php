@@ -10,13 +10,13 @@ class Invoice extends Model
     use HasFactory;
 
     protected $fillable = [
-        'customer_id',
-        'country' ,
-        'city',
-        'zip',
-        'street',
-        'invoice_date',
-        'due_date',
-        'order_number',
+        'user_id',
+        'freight',
+        'to_country',
+        'to_city',
+        'to_zip',
+        'to_street',
+        'total_price',
+        'total_price_excl_vat'
     ];
 }

@@ -13,18 +13,15 @@ return new class extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('customer_id');
+            $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->float('freight'); // -> Refers to volumetric weight = ((L * W * H in centimeters) / 6000 ) x number of packages 
-            $table->string('order_number');
             $table->string('to_country');
             $table->string('to_city');
             $table->string('to_zip');
             $table->string('to_street');
             $table->float('total_price');
             $table->float('total_price_excl_vat');
-            $table->boolean('is_paid');
-            $table->date('invoice_date');
-            $table->date('due_date');
+            $table->boolean('is_paid')->default(0)->change(); 
             $table->timestamps();
         });
     }
