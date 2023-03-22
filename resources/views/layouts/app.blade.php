@@ -35,5 +35,5 @@
     </div>
 </body>
 <script type="text/javascript" src="{{ url('js/inputs.js') }}"></script>
-{{-- <script type="text/javascript" src="{{ url('js/todayDefault.js') }}"></script> --}}
+<script type="text/javascript" src="{{ url('js/today_date.js') }}"></script>
 </html>

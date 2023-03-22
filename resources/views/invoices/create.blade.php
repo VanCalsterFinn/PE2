@@ -4,38 +4,49 @@
     <div class="flex justify-center content-center font-mono">
         <form action="{{ route('create') }}" method="post">
             @csrf
-            <div class="flex flex-col justify-content content-center ">
+            <div class="flex flex-col justify-content content-center">
                 <!-- Title -->
-                <div class="flex justify-center content-center py-4">
+                <div class="flex justify-center content-center py-4 bg-neutral-100">
                     <h1 class="font-semibold text-2xl">New Invoice</h1>
                 </div>
-                <!-- Customer Selection Block -->
-                {{-- <div class="flex flex-col py-2">
-                <h1 class="font-semibold text-lg">Customer</h1>
-                <input type="text" name="customer_id" class="form-control border-grey border-2 rounded w-60">
-            </div> --}}
+
+                <div class="flex justify-between items-center">
+                    <!-- Customer Selection Block -->
+                    {{-- <div class="flex flex-col py-2">
+                        <h1 class="font-semibold text-lg">Customer</h1>
+                        <input type="text" name="customer_id" class="form-control border-grey border-2 rounded w-60">
+                    </div> --}}
+
+                    <!-- Order ID Block -->
+                    <div class="flex justify-content content-align gap-16 py-2">
+                        <div class="flex flex-col">
+                            <h1 class="font-semibold text-lg">Order Number</h1>
+                            <input type="text" name="order_number" class="form-control border-grey border-2 rounded">
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Address Selection Block -->
-                <div class="flex gap-16 py-2">
-                    {{-- <div class="flex-col">
-                <h1 class="font-semibold text-lg">From</h1>
-                <div class="flex flex-col">
-                    <label for="country">Country</label>
-                    <input type="text" name="country" class="border-grey border-2 rounded">
-                </div>
-                <div class="flex flex-col">
-                    <label for="city">City</label>
-                    <input type="text" name="city" class="border-grey border-2 rounded">
-                </div>
-                <div class="flex flex-col">
-                    <label for="zip">Zip</label>
-                    <input type="text" name="zip" class="border-grey border-2 rounded">
-                </div>
-                <div class="flex flex-col">                
-                    <label for="street">Street</label>
-                    <input type="text" name="street" class="border-grey border-2 rounded">
-                </div>
-            </div> --}}
+                <div class="flex justify-between items-center gap-16 py-2">
+                    <div class="flex-col">
+                        <h1 class="font-semibold text-lg">From</h1>
+                        <div class="flex flex-col">
+                            <label for="country">Country</label>
+                            <input type="text" name="from_country" class="border-grey border-2 rounded">
+                        </div>
+                        <div class="flex flex-col">
+                            <label for="city">City</label>
+                            <input type="text" name="from_city" class="border-grey border-2 rounded">
+                        </div>
+                        <div class="flex flex-col">
+                            <label for="zip">Zip</label>
+                            <input type="text" name="from_zip" class="border-grey border-2 rounded">
+                        </div>
+                        <div class="flex flex-col">
+                            <label for="street">Street</label>
+                            <input type="text" name="from_street" class="border-grey border-2 rounded">
+                        </div>
+                    </div>
 
                     <div class="flex-col py-4">
                         <h1 class="font-semibold text-lg">Shipping Address</h1>
@@ -59,30 +70,22 @@
                 </div>
 
                 <!-- Invoice Date Block -->
-                {{-- <div class="flex justify-between content-center p-4 border-2 border-grey rounded-lg">
-                <div class="flex flex-col pr-8">
-                    <h1 class="font-semibold text-lg">Invoice Date</h1>
-                    <input type="date" name="invoice_date" id="datePicker" class="form-control border-grey border-2 rounded">
+                <div class="flex justify-between content-center p-4 border-2 border-grey rounded-lg">
+                    <div class="flex flex-col pr-8">
+                        <h1 class="font-semibold text-lg">Invoice Date</h1>
+                        <input type="date" name="invoice_date" id="datePicker"
+                            class="form-control border-grey border-2 rounded" value="">
+                    </div>
+                    <div class="flex flex-col">
+                        <h1 class="font-semibold text-lg">Due Date</h1>
+                        <select name="due_date" id="" class="form-control border-grey border-2 rounded">
+                            <option value="30">After 30 days</option>
+                            <option value="40">After 40 days</option>
+                            <option value="50">After 50 days</option>
+                            <option value="60">After 60 days</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="flex flex-col">
-                    <h1 class="font-semibold text-lg">Due Date</h1>
-                    <select name="due_date" id="" class="form-control border-grey border-2 rounded">
-                        <option value="30">After 30 days</option>
-                        <option value="40">After 40 days</option>
-                        <option value="50">After 50 days</option>
-                        <option value="60">After 60 days</option>
-                    </select>
-                </div>
-            </div> --}}
-
-                <!-- Order ID Block -->
-                {{-- <div class="flex justify-content content-align gap-16 py-2">
-                <div class="flex flex-col">
-                    <h1 class="font-semibold text-lg">Order Number</h1>
-                    <input type="text" name="order_id" class="form-control border-grey border-2 rounded">
-                </div>
-            </div> --}}
-
 
                 <!-- Freight Block -->
                 <div class="flex justify-content content-align gap-16 py-2">
@@ -106,7 +109,7 @@
                                                 <th class="flex flex-start w-16">Action</th>
                                             </tr>
                                             <!-- Block for spawning in extra freight items -->
-                                            <tr class="flex justify-between items-center">
+                                            {{-- <tr class="flex justify-between items-center">
                                                 <td class="flex flex-start w-48"><input type="text"
                                                         name="inputs[0][description]"
                                                         class="border-grey border-2 rounded w-30 form-control"
@@ -129,9 +132,9 @@
                                                         placeholder="in kg"></td>
                                                 <td class="flex flex-start w-16 justify-center items-center"><button
                                                         type="button"
-                                                        class="bg-neutral-500 rounded-full text-white w-6 h-6 hidden">X</button>
+                                                        class="bg-neutral-500 rounded-full text-white w-6 h-6">X</button>
                                                 </td>
-                                            </tr>
+                                            </tr> --}}
                                         </table>
                                     </div>
                                 </div>
@@ -140,12 +143,14 @@
                     </div>
                 </div>
                 <!-- Price & Calculations -->
-                {{-- <div class="flex flex-col justify-center content-end w-2/3">
+                <div class="flex flex-col justify-center content-end w-2/3">
                     <div class="flex flex-col border-b-2 border-blue-700 py-2">
                         <div class="flex justify-between pr-4">
                             <h1>Subtotal</h1>
                             <p>$0.0</p>
                         </div>
+                    </div>
+                    <div class="flex flex-col border-b-2 border-blue-700 py-2">
                         <div class="flex justify-between pr-4">
                             <h1>Discount</h1>
                             <p>-$0.0</p>
@@ -155,7 +160,7 @@
                             <p>-$0.0</p>
                         </div>
                     </div>
-                    <div class="flex flex-col border-b-2 border-blue-700 py-2">
+                    <div class="flex flex-col py-2">
                         <div class="flex justify-between pr-4">
                             <h1>Total</h1>
                             <p>$0.0</p>
@@ -165,13 +170,7 @@
                             <p>$0.0</p>
                         </div>
                     </div>
-                    <div class="flex flex-col py-2">
-                        <div class="flex justify-between pr-4">
-                            <h1>Deposit Due</h1>
-                            <p>$0.0</p>
-                        </div>
-                    </div>
-                </div> --}}
+                </div>
 
                 <!-- Save Button -->
                 <div class="flex justify-start content-center py-4">

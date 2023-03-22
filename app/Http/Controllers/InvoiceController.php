@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Invoice;
 use App\Models\InvoiceItem;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\Console\Input\Input;
@@ -35,11 +36,18 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
+        //Validations
         $request->validate([
+            'order_number' => 'required', 
+            'from_country' => 'required',
+            'from_city' => 'required',
+            'from_zip' => 'required',
+            'from_street' => 'required',
             'to_country' => 'required',
             'to_city' => 'required',
             'to_zip' => 'required',
             'to_street' => 'required',
+            'invoice_date' => 'required',
             'inputs.*.description' => 'required',
             'inputs.*.length' => 'required',
             'inputs.*.width' => 'required',
@@ -75,13 +83,26 @@ class InvoiceController extends Controller
             $total_price = $total_weight * $dense_cargo_tarrif;
             $total_price_excl_VAT = $total_price / (1 + $VAT_percentage);
         }
+
+        
+        //Calculate due date
+        $invoice_date = Carbon::create($request['invoice_date']);
+        $due_date = $invoice_date->addDays($request['due_date']);
+
         //First we create the invoice se we can link all the invoice items to that invoice
         $invoice = Invoice::create([
             'user_id' => auth()->user()->id,
+            'order_number' => $request['order_number'],
             'freight' => $freight,
+            'from_country' => $request['from_country'],
+            'from_city' => $request['from_city'],
+            'from_zip' => $request['from_zip'],
+            'from_street' => $request['from_street'],
             'to_country' => $request['to_country'],
             'to_city' => $request['to_city'],
             'to_zip' => $request['to_zip'],
+            'invoice_date' => $request['invoice_date'],
+            'due_date' => $due_date,
             'to_street' => $request['to_street'],
             'total_price' => $total_price,
             'total_price_excl_vat' => $total_price_excl_VAT,
